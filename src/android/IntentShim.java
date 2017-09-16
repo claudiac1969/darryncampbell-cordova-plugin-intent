@@ -69,7 +69,19 @@ public class IntentShim extends CordovaPlugin {
             if (obj.has("url"))
             {
                 String uriAsString = obj.getString("url");
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && uriAsString.startsWith("file://"))
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M && uriAsString.startsWith("tel:"))
+                {
+                    int permissionCheck = ContextCompat.checkSelfPermission(this.cordova.getActivity(),
+                            Manifest.permission.CALL_PHONE);
+                    if (permissionCheck != PackageManager.PERMISSION_GRANTED)
+                    {
+                        ActivityCompat.requestPermissions(this.cordova.getActivity(),
+                                new String[]{Manifest.permission.CALL_PHONE}, 1);
+                        callbackContext.error("Please grant read app to place call!");
+                        return false;
+                    }
+		}
+                else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && uriAsString.startsWith("file://"))
                 {
                     //  Create the URI via FileProvider  Special case for N and above when installing apks
                     int permissionCheck = ContextCompat.checkSelfPermission(this.cordova.getActivity(),
