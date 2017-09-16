@@ -81,7 +81,7 @@ public class IntentShim extends CordovaPlugin {
                         return false;
                     }
 		}
-                else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && uriAsString.startsWith("file://"))
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && uriAsString.startsWith("file://"))
                 {
                     //  Create the URI via FileProvider  Special case for N and above when installing apks
                     int permissionCheck = ContextCompat.checkSelfPermission(this.cordova.getActivity(),
