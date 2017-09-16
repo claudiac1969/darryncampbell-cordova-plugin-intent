@@ -241,6 +241,18 @@ Pick an Android contact
         console.log("StartActivityForResult failure");
     });
 
+Place Call
+
+function makeCall(tel) {
+  window.plugins.intentShim.startActivity(
+  {
+    action: window.plugins.intentShim.ACTION_CALL,
+    url: "tel:"+tel
+  },
+  function() {console.log('Call Success')},
+  function() {console.log('Call Failed')}
+  );
+}
 
 ## Predefined Constants
 
