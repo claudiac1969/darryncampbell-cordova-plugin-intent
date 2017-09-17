@@ -80,6 +80,13 @@ public class IntentShim extends CordovaPlugin {
                         callbackContext.error("Please grant read app to place call!");
                         return false;
                     }
+		    PackageManager pm = this.getPackageManager();
+
+ 		    if (pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
+     			callbackContext.error("yes");
+ 		    } else {
+     			callbackContext.error("no");
+ 		    }	
 		}
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && uriAsString.startsWith("file://"))
                 {
